@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ukubona · The Abandoned Coordinate</title>
+<link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-dark.ico"/>
+<link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-light.ico" media="(prefers-color-scheme:light)"/>
+<link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-dark.png" as="image"/>
+<link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-light.png" as="image"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #08080D;
+  --surface:    #0F0F18;
+  --surface2:   #16161F;
+  --border:     #1E1E2E;
+  --amber:      #F59E0B;
+  --amber-dim:  #92610A;
+  --amber-glow: #F59E0B18;
+  --text:       #E8E8F0;
+  --muted:      #7070A0;
+  --faint:      #2A2A3A;
+  --red:        #F87171;
+  --green:      #4ADE80;
+  --blue:       #60A5FA;
+  --violet:     #A78BFA;
+  --violet-dim: #6D28D9;
+  --serif:      'DM Serif Display', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+  --mono:       'DM Mono', 'Fira Mono', monospace;
+  --radius:     4px;
+}
+
+[data-theme="light"] {
+  --bg:         #F2F0EA;
+  --surface:    #FFFFFF;
+  --surface2:   #EDEAE2;
+  --border:     rgba(0,0,0,0.09);
+  --amber:      #92610A;
+  --amber-dim:  #7A5208;
+  --amber-glow: #92610A14;
+  --text:       #18160F;
+  --muted:      #6B6555;
+  --faint:      #D9D4C8;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--sans); font-size: 15px; line-height: 1.65;
+  min-height: 100vh; overflow-x: hidden;
+  transition: background 0.35s, color 0.35s;
+}
+
+/* ── NAV ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 300;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.nav-inner {
+  max-width: 860px; margin: 0 auto; padding: 0 2rem; height: 52px;
+  display: flex; align-items: center; gap: 0.85rem;
+}
+.logo-wrap { width: 28px; height: 28px; flex-shrink: 0; position: relative; }
+.logo-wrap img {
+  width: 100%; height: 100%; object-fit: contain;
+  position: absolute; top: 0; left: 0; transition: opacity 0.4s;
+  animation: spin 90s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .logo-wrap img { animation: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.logo-dark  { opacity: 1; }
+.logo-light { opacity: 0; }
+[data-theme="light"] .logo-dark  { opacity: 0; }
+[data-theme="light"] .logo-light { opacity: 1; }
+.nav-brand { font-family: var(--serif); font-size: 0.95rem; color: var(--text); flex: 1; }
+.nav-sub { font-family: var(--mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 0.08em; margin-left: 0.4rem; }
+.theme-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 0.26rem 0.8rem;
+  font-family: var(--mono); font-size: 0.58rem; color: var(--muted);
+  cursor: pointer; letter-spacing: 0.06em; transition: background 0.2s, color 0.2s; flex-shrink: 0;
+}
+.theme-btn:hover { color: var(--text); }
+.nav-links { display: flex; gap: 1.25rem; align-items: center; }
+.nav-links a {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--amber); }
+@media (max-width: 680px) { .nav-links { display: none; } }
+
+/* ── LAYOUT ── */
+.page { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+/* ── HERO ── */
+.hero { padding: 3.5rem 0 2rem; border-bottom: 1px solid var(--border); }
+.eyebrow {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--amber); margin-bottom: 1rem;
+}
+h1 {
+  font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.08; font-weight: 400; margin-bottom: 0.9rem;
+}
+h1 em { font-style: italic; color: var(--amber); }
+.hero-sub {
+  font-size: 0.875rem; color: var(--muted); font-weight: 300;
+  max-width: 620px; line-height: 1.75; margin-bottom: 1.75rem;
+}
+
+/* ── VIDEO ── */
+.video-wrapper { margin: 1.5rem 0 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.video-container { position: relative; padding-bottom: 56.25%; height: 0; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.video-caption { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.04em; padding: 0.6rem 0.1rem 0; }
+
+/* ── SECTION LABEL ── */
+.sl {
+  display: flex; align-items: center; gap: 0.75rem; padding: 2.5rem 0 1.4rem;
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted);
+}
+.sl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── CASE BOX (ground truth) ── */
+.case-box {
+  margin: 0.5rem 0 1.5rem; padding: 1.35rem 1.5rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); border-left: 3px solid var(--amber);
+}
+.case-name { font-family: var(--serif); font-size: 1.2rem; color: var(--amber); font-style: italic; margin-bottom: 0.15rem; }
+.case-cite { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 1.1rem; }
+.case-box p { font-size: 0.87rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 0.9rem; }
+.case-box p:last-child { margin-bottom: 0; }
+.vote-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0.25rem; }
+.vote-chip {
+  font-family: var(--mono); font-size: 0.62rem; padding: 0.28rem 0.65rem;
+  border-radius: 2px; border: 1px solid var(--faint); color: var(--muted); letter-spacing: 0.02em;
+}
+.vote-chip.majority { border-color: var(--amber-dim); color: var(--amber); }
+.vote-chip.dissent  { border-color: var(--red); color: var(--red); }
+.vote-chip.partial  { border-color: var(--violet); color: var(--violet); }
+.src-list {
+  margin-top: 1.15rem; padding-top: 0.9rem; border-top: 1px solid var(--faint);
+  font-family: var(--mono); font-size: 0.62rem; color: var(--muted); line-height: 2;
+}
+.src-list a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--faint); }
+.src-list a:hover { color: var(--amber); }
+
+/* ── TIMELINE (roundtable) ── */
+.timeline { position: relative; padding-left: 2.1rem; margin-top: 0.5rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px; width: 2px;
+  background: linear-gradient(to bottom, var(--muted), var(--amber), var(--blue), var(--green), var(--violet));
+  opacity: 0.3;
+}
+.tl-item { position: relative; margin-bottom: 2.5rem; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -2.1rem; top: 4px; width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--muted); background: var(--bg);
+}
+.tl-date { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.tl-title { font-family: var(--serif); font-size: 1.25rem; color: var(--text); margin-bottom: 0.4rem; line-height: 1.2; }
+.tl-body { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 620px; }
+
+/* per-voice accents */
+.tl-item.voice-ukubona .tl-dot   { border-color: var(--muted); }
+.tl-item.voice-ukubona .tl-date  { color: var(--muted); }
+.tl-item.voice-ukubona .tl-title { color: var(--muted); font-style: italic; }
+
+.tl-item.voice-claude .tl-dot   { border-color: var(--amber); background: var(--amber-glow); }
+.tl-item.voice-claude .tl-date  { color: var(--amber); }
+.tl-item.voice-claude .tl-title { color: var(--amber); }
+
+.tl-item.voice-gemini .tl-dot   { border-color: var(--blue); background: #60A5FA14; }
+.tl-item.voice-gemini .tl-date  { color: var(--blue); }
+.tl-item.voice-gemini .tl-title { color: var(--blue); }
+
+.tl-item.voice-openai .tl-dot   { border-color: var(--green); background: #4ADE8014; }
+.tl-item.voice-openai .tl-date  { color: var(--green); }
+.tl-item.voice-openai .tl-title { color: var(--green); }
+
+.tl-item.voice-newclaude .tl-dot   { border-color: var(--violet); border-style: dashed; background: #A78BFA18; }
+.tl-item.voice-newclaude .tl-date  { color: var(--violet); }
+.tl-item.voice-newclaude .tl-title { color: var(--violet); }
+
+/* voice tags */
+.voice-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.5rem 0 1.1rem; }
+.vtag {
+  display: inline-block; font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.07em; text-transform: uppercase; padding: 0.16rem 0.5rem;
+  border-radius: 2px; border: 1px solid var(--faint); color: var(--muted); background: var(--surface2);
+}
+.vtag.verbatim   { color: var(--text); border-color: var(--border); }
+.vtag.compressed { color: var(--muted); border-color: var(--faint); font-style: italic; }
+
+/* ── VOICE CONTENT (rich prose) ── */
+.voice-content { max-width: 100%; margin-top: 0.3rem; }
+.voice-content p { font-size: 0.9rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 1rem; }
+.voice-content p:last-child { margin-bottom: 0; }
+.voice-content strong { font-weight: 500; color: var(--text); }
+.voice-content ol, .voice-content ul { margin: 0.2rem 0 1.1rem 1.4rem; }
+.voice-content li { font-size: 0.88rem; line-height: 1.7; color: var(--text); font-weight: 300; margin-bottom: 0.45rem; }
+.voice-content hr { border: none; border-top: 1px solid var(--border); margin: 1.6rem 0; }
+.voice-content .vq {
+  margin: 1rem 0; padding: 0.75rem 1.15rem; border-left: 2px solid var(--border);
+  background: var(--surface2); border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic; color: var(--text); font-size: 0.87rem; line-height: 1.7;
+}
+.voice-content .vq.strong-q { border-left-color: var(--amber-dim); font-weight: 500; font-style: normal; }
+.voice-content .math { font-family: var(--mono); color: var(--amber-dim); font-style: normal; display: block; text-align: center; margin: 0.9rem 0; font-size: 0.92rem; }
+.voice-content .src-line { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); word-break: break-all; }
+.voice-content .src-line a { color: var(--blue); text-decoration: none; }
+.voice-content .src-line a:hover { text-decoration: underline; }
+.voice-content a.tstamp { color: var(--blue); text-decoration: none; font-family: var(--mono); font-size: 0.82em; border-bottom: 1px dotted var(--blue); }
+.voice-content a.tstamp:hover { border-bottom-style: solid; }
+
+/* simple 2-col table for Document 2's pentad mapping */
+.simple-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 0.5rem 0 1.2rem; }
+.simple-table th {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--muted); text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border);
+  font-weight: 400; background: var(--surface);
+}
+.simple-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--faint); vertical-align: top; font-weight: 300; line-height: 1.6; color: var(--text); }
+.simple-table tr:last-child td { border-bottom: none; }
+.simple-table td:first-child { font-family: var(--serif); font-size: 0.9rem; color: var(--amber); white-space: nowrap; padding-right: 1rem; }
+
+/* dblocks for the additional-viewpoint section */
+.dgrid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; margin-top: 0.5rem; }
+.dblock {
+  padding: 1rem 1.2rem; background: var(--surface2); border-radius: var(--radius);
+  border: 1px solid var(--faint); border-left: 2px solid var(--violet);
+}
+.dblock .dlabel {
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 0.55rem;
+}
+.dblock p { font-size: 0.87rem; line-height: 1.75; color: var(--text); font-weight: 300; }
+.dblock .math { font-family: var(--mono); color: var(--violet); font-style: normal; }
+
+/* ── EPISTEMIC NOTE ── */
+.ep-note {
+  margin-top: 2.5rem; padding: 1.25rem 1.5rem; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius); border-left: 3px solid var(--amber-dim);
+}
+.ep-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.ep-note p { font-family: var(--serif); font-size: 1.02rem; line-height: 1.7; color: var(--text); }
+.ep-note em { color: var(--amber); font-style: italic; }
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 4rem; border-top: 1px solid var(--border); padding: 1.5rem 2rem;
+  max-width: 860px; margin-left: auto; margin-right: auto;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+}
+footer .brand { font-family: var(--serif); font-size: 1rem; color: var(--amber); font-style: italic; }
+footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.06em; text-align: right; line-height: 1.6; }
+
+@media (max-width: 580px) {
+  .page { padding: 0 1.25rem; }
+  .hero { padding: 2.5rem 0 2rem; }
+  footer { padding: 1.5rem 1.25rem; }
+  .timeline { padding-left: 1.6rem; }
+  .tl-dot { left: -1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <div class="logo-wrap" aria-hidden="true">
+      <img class="logo-dark"  src="https://abikesa.github.io/logos/assets/ukubona-dark.png"  alt=""/>
+      <img class="logo-light" src="https://abikesa.github.io/logos/assets/ukubona-light.png" alt=""/>
+    </div>
+    <div class="nav-brand">Ukubona <span class="nav-sub">· Multi-Model Roundtable · Trump v. Barbara</span></div>
+    <nav class="nav-links" aria-label="External links">
+      <a href="https://twin-os.onrender.com/" target="_blank" rel="noopener">twin-os ↗</a>
+      <a href="https://ukubona-llc.github.io/constitution/" target="_blank" rel="noopener">constitution ↗</a>
+      <a href="https://ukubona-llc.github.io/civilization/" target="_blank" rel="noopener">civilization ↗</a>
+    </nav>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle color theme">light</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <p class="eyebrow">Ukubona LLC · Multi-Model Roundtable · July 2026</p>
+    <h1>The Abandoned<br><em>Coordinate</em></h1>
+    <p class="hero-sub">
+      A birthright-citizenship ruling, a withdrawn 1866 draft, and four AI systems reaching for the
+      same Jacobian from four different angles. Ukubona's own trigger is compressed below — everything
+      that follows it, voice by voice, is archived verbatim. The one addition is checked against the
+      slip opinion itself, not just the ten minutes of video that started this.
+    </p>
+    <div class="video-wrapper">
+      <div class="video-container">
+        <iframe src="https://www.youtube-nocookie.com/embed/gQeIfiTvyjA" title="MS NOW · Blight: Thomas's dissent reflects 'an ideology in search of a history'" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <p class="video-caption">MS NOW · "Blight: Thomas's dissent reflects 'an ideology in search of a history'" · the clip that started the sitting</p>
+  </div>
+
+  <!-- ── GROUND TRUTH ── -->
+  <div class="sl">Ground truth · y_obs, checked after the roundtable ran</div>
+  <div class="case-box">
+    <div class="case-name">Trump v. Barbara</div>
+    <div class="case-cite">Nos. 25-364 &amp; 25-365 · 609 U.S. ___ (2026) · decided June 30, 2026</div>
+    <p>
+      The Court held, 6–3 in the judgment, that children born on U.S. soil to parents who are undocumented
+      or present on temporary status are "subject to the jurisdiction" of the United States within the
+      meaning of the Fourteenth Amendment, and are citizens at birth. Chief Justice Roberts wrote for the
+      Court, anchoring the holding in <em>United States v. Wong Kim Ark</em> (1898) and the common-law rule
+      of birthright citizenship. The ruling struck down the executive order President Trump issued on
+      January 20, 2025, his first day in office — an order no lower court had allowed to take effect.
+    </p>
+    <p>
+      Justice Jackson filed a twenty-page concurrence, joined by Justice Sotomayor as to its introduction
+      and Part I, directed substantially at Justice Thomas's dissent. Justice Kavanaugh concurred in the
+      judgment on narrower statutory grounds and dissented in part from the constitutional holding.
+      Justice Thomas dissented, joined by Justice Gorsuch; Justices Alito and Gorsuch each also filed
+      separate dissents of their own.
+    </p>
+    <div class="vote-grid">
+      <span class="vote-chip majority">Roberts · opinion of the Court</span>
+      <span class="vote-chip majority">Kagan · Sotomayor · Barrett · Jackson</span>
+      <span class="vote-chip partial">Kavanaugh · concurs in judgment, dissents in part</span>
+      <span class="vote-chip dissent">Thomas · joined by Gorsuch</span>
+      <span class="vote-chip dissent">Alito · separate dissent</span>
+      <span class="vote-chip dissent">Gorsuch · separate dissent</span>
+    </div>
+    <div class="src-list">
+      Sources · <a href="https://www.supremecourt.gov/opinions/25pdf/25-365_4hdj.pdf" target="_blank" rel="noopener">slip opinion, supremecourt.gov</a>
+      · <a href="https://www.scotusblog.com/cases/trump-v-barbara/" target="_blank" rel="noopener">SCOTUSblog case page</a>
+      · <a href="https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump" target="_blank" rel="noopener">NPR</a>
+      · <a href="https://thehill.com/regulation/court-battles/5948630-justice-jackson-clarence-thomas/" target="_blank" rel="noopener">The Hill</a>
+      · <a href="https://constitutioncenter.org/blog/supreme-court-strikes-down-trumps-birthright-citizenship-executive-order-in-landmark-decision" target="_blank" rel="noopener">National Constitution Center</a>
+    </div>
+  </div>
+
+  <!-- ── ROUNDTABLE ── -->
+  <div class="sl">The roundtable · five voices, one sitting</div>
+
+  <div class="timeline">
+
+    <!-- 0. UKUBONA (compressed) -->
+    <div class="tl-item voice-ukubona">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Trigger · compressed</div>
+      <div class="tl-title">Ukubona</div>
+      <div class="voice-tags"><span class="vtag compressed">lossy, by request</span></div>
+      <div class="tl-body">
+        Watching an MS NOW clip of Justice Jackson's concurrence — the on-screen text walking through
+        Senator Trumbull's 1866 about-face, a race-specific draft withdrawn the day after it was filed
+        and replaced with universal language — Ukubona asked why this particular piece of legal fine
+        print landed so hard. The frame reached for was already on the workbench: the same
+        Tensor→Matrix→Vector→Eigenmode→Scalar pentad just used on a different bench (biological sex,
+        the "False Geodesic" page) — asking whether Thomas's dissent differentiates around the wrong
+        point on the manifold. That question, and the False Geodesic page itself, were handed to Claude,
+        then Gemini, then GPT, in sequence.
+      </div>
+    </div>
+
+    <!-- 1. CLAUDE (prior turn / Document 2) -->
+    <div class="tl-item voice-claude">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Anthropic · Claude</div>
+      <div class="tl-title">Which historical facts belong inside the Jacobian</div>
+      <div class="voice-tags"><span class="vtag verbatim">verbatim · non-lossy</span></div>
+      <div class="voice-content">
+        <p>I actually think you've put your finger on something more general than this particular case. The irritation isn't really about birthright citizenship. It's about a mismatch between <strong>the object being modeled</strong> and <strong>the coordinate system chosen to model it</strong>.</p>
+        <p>Using your own vocabulary:</p>
+        <table class="simple-table">
+          <thead><tr><th>Stage</th><th>Constitutional analogue</th></tr></thead>
+          <tbody>
+            <tr><td>Tensor (Okubonabona)</td><td>The full legislative and historical landscape: debates, rejected drafts, enacted text, subsequent practice, social consequences.</td></tr>
+            <tr><td>Matrix / Jacobian (Kubona)</td><td>The interpretive rule: originalism, textualism, purposivism, precedent. This is the sensitivity map that determines what evidence matters.</td></tr>
+            <tr><td>Vector / SVD(J) (Ivyabona)</td><td>The opinion itself — the dominant direction extracted from the interpretive method.</td></tr>
+            <tr><td>Eigenmode (Ukubona)</td><td>The doctrine produced in concrete cases.</td></tr>
+            <tr><td>Scalar (Sawubona)</td><td>Administrative reality: citizenship granted or denied, passports issued, lives altered.</td></tr>
+          </tbody>
+        </table>
+        <p>The interesting question is therefore <strong>whether Justice Thomas has the wrong Jacobian.</strong></p>
+        <p>Your draft argues yes:</p>
+        <div class="vq">the enacted Fourteenth Amendment is the high-dimensional object, while Thomas differentiates along an abandoned draft coordinate system.</div>
+        <p>That is a mathematically coherent criticism.</p>
+        <p>The screenshots illustrate the argument made by Justice Jackson's concurrence:</p>
+        <ol>
+          <li>Senator Trumbull initially proposed language limited to people of African descent.</li>
+          <li>He withdrew it.</li>
+          <li>He deliberately replaced it with universal language.</li>
+          <li>Congress enacted the universal language.</li>
+          <li>Therefore the derivative of constitutional meaning should be taken around the enacted manifold, not around the discarded proposal.</li>
+        </ol>
+        <p>That's a perfectly respectable historical argument.</p>
+        <hr>
+        <p>Where I would tighten your formulation is here:</p>
+        <div class="vq">"Thomas attempts to override the actual enacted law with a discarded historical index."</div>
+        <p>That overstates Thomas's position.</p>
+        <p>Thomas's actual originalist methodology generally asks what the <strong>public meaning</strong> of the enacted words was when adopted. Jackson's concurrence argues that the drafting history — including Trumbull's conscious change from race-specific to universal language — is evidence that the enacted public meaning was intentionally broad.</p>
+        <p>So the disagreement isn't simply</p>
+        <div class="vq">enacted text vs discarded draft.</div>
+        <p>It's</p>
+        <div class="vq strong-q">which historical facts belong inside the Jacobian.</div>
+        <p>Jackson says:</p>
+        <div class="vq">The withdrawal of the first proposal is itself part of the derivative.</div>
+        <p>Thomas tends to weight different historical materials more heavily.</p>
+        <p>Those are different sensitivity matrices.</p>
+        <hr>
+        <p>Where your systems language becomes genuinely useful is here.</p>
+        <p>A Jacobian is not reality.</p>
+        <p>It is</p>
+        <span class="math">J = ∂y/∂x</span>
+        <p>a local linearization.</p>
+        <p>If someone mistakes J for θ (the underlying manifold), then every downstream prediction becomes constrained by a local approximation.</p>
+        <p>That's exactly your "Judicial Jacobian perversion."</p>
+        <p>Not because originalism is necessarily wrong, but because <strong>any interpretive method becomes pathological if it forgets that it is an approximation rather than the object itself.</strong></p>
+        <hr>
+        <p>I also like your phrase:</p>
+        <div class="vq">"Administrative Wreckage."</div>
+        <p>That corresponds almost exactly to what engineers would call <strong>model error propagation</strong>.</p>
+        <p>An error at the coordinate-chart stage doesn't remain local.</p>
+        <p>It propagates through:</p>
+        <ul>
+          <li>judicial opinions,</li>
+          <li>executive implementation,</li>
+          <li>agency guidance,</li>
+          <li>state administration,</li>
+          <li>individual lives.</li>
+        </ul>
+        <p>A small error in J produces a large error in downstream outputs.</p>
+        <hr>
+        <p>One place I'd be cautious is this sentence:</p>
+        <div class="vq">"The final text of the 14th Amendment was explicitly written as a broad, universal space — a continuous Tensor..."</div>
+        <p>As metaphor that's elegant, but historically it needs qualification. The Fourteenth Amendment still contains discrete legal concepts ("subject to the jurisdiction thereof," citizenship, equal protection, etc.). Calling it a "continuous tensor" works as a philosophical abstraction, but not as a literal description of constitutional drafting.</p>
+        <p>A formulation that preserves your mathematical framework while staying closer to the history would be:</p>
+        <div class="vq"><em>The enacted Citizenship Clause deliberately expanded the domain from a race-specific proposal to a generally applicable rule. In systems terms, Congress intentionally replaced a narrow coordinate chart with one defined over a much larger legal manifold.</em></div>
+        <p>That keeps the metaphor anchored to what the historical record actually supports.</p>
+        <p>Overall, I think the strongest insight in your framing isn't about this specific constitutional dispute. It's the more general systems claim:</p>
+        <div class="vq strong-q">Institutions routinely confuse the interpretive map (the Jacobian) with the underlying reality (the manifold). Once that confusion occurs, every downstream decision is internally consistent yet globally distorted.</div>
+        <p>That's a principle that extends beyond constitutional law — to medicine, machine learning, economics, and any domain where an approximation risks becoming mistaken for the phenomenon it was designed to model.</p>
+      </div>
+    </div>
+
+    <!-- 2. GEMINI -->
+    <div class="tl-item voice-gemini">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Google · Gemini</div>
+      <div class="tl-title">Administrative Wreckage</div>
+      <div class="voice-tags"><span class="vtag verbatim">verbatim · non-lossy</span></div>
+      <div class="voice-content">
+        <p>The core of the irritation lies in a severe perversion of the "Judicial Jacobian". The final text of the 14th Amendment was explicitly written as a broad, universal space — a continuous "Tensor" (Okubonabona) meant to hold a diverse community together [<a class="tstamp" href="https://www.youtube.com/watch?v=gQeIfiTvyjA&t=68s" target="_blank" rel="noopener">01:08</a>]. Justice Thomas is not simply applying a lossy coordinate chart to this high-dimensional reality; he is forcing the law into an abandoned and explicitly rejected binary script.</p>
+        <p>Senator Trumbull's first proposal was a narrow matrix restricted only to "persons of African descent" [<a class="tstamp" href="https://www.youtube.com/watch?v=gQeIfiTvyjA&t=26s" target="_blank" rel="noopener">00:26</a>]. Because that language was intentionally withdrawn and replaced with universalist phrasing, Thomas's originalist argument attempts to override the actual enacted law with a discarded historical index [<a class="tstamp" href="https://www.youtube.com/watch?v=gQeIfiTvyjA&t=54s" target="_blank" rel="noopener">00:54</a>]. This generates pure "Administrative Wreckage" by confusing a failed, low-bitrate draft codebase with the high-resolution reality of the Constitution.</p>
+        <p>Instead of holding the full joint distribution of the broad legislative landscape, Thomas imposes an artificial bottleneck, introducing a massive error in measurement and severely restricting the downstream ecosystem [<a class="tstamp" href="https://www.youtube.com/watch?v=gQeIfiTvyjA&t=454s" target="_blank" rel="noopener">07:34</a>]. The system demands intelligibility, but reaching for an ideology in search of a history forces a false geodesic onto the human condition [<a class="tstamp" href="https://www.youtube.com/watch?v=gQeIfiTvyjA&t=414s" target="_blank" rel="noopener">06:54</a>].</p>
+        <p class="src-line"><a href="https://www.youtube.com/watch?v=gQeIfiTvyjA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=gQeIfiTvyjA</a></p>
+      </div>
+    </div>
+
+    <!-- 3. OPENAI -->
+    <div class="tl-item voice-openai">
+      <div class="tl-dot"></div>
+      <div class="tl-date">OpenAI</div>
+      <div class="tl-title">The handoff</div>
+      <div class="voice-tags"><span class="vtag verbatim">verbatim · non-lossy</span></div>
+      <div class="voice-content">
+        <p>This leaves Anthropic to build an .html artefact using Ukubona LLC favicon, rotating logo, light / dark toggle, plus additional view point. I'd prefer a verbatim non-lossy preservation of all the voices, except Ukubona, which you should feel free to translate into a lossy compression. here is an .html template:</p>
+        <p class="src-line"><em>— the referenced template is the existing Ukubona corpus (the SVG(J) Reference and Kampala Pentad pages); this document inherits their system directly.</em></p>
+      </div>
+    </div>
+
+    <!-- 4. CLAUDE — additional viewpoint (current) -->
+    <div class="tl-item voice-newclaude">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Anthropic · Claude · current</div>
+      <div class="tl-title">Two Jacobians, checked against y_obs</div>
+      <div class="voice-tags"><span class="vtag verbatim">additional viewpoint · grounded in the slip opinion</span></div>
+      <div class="voice-content">
+        <p>The roundtable converged on one story: a race-specific draft, withdrawn, replaced by universal language, enacted — Thomas allegedly differentiating around the discarded version. That story is real; it's in Jackson's concurrence, told through the Trumbull episode the screenshots capture. But having read the actual opinions, it isn't quite what separates Thomas from the six-justice majority.</p>
+        <div class="dgrid">
+          <div class="dblock">
+            <div class="dlabel">Two Jacobians, not one</div>
+            <p>Thomas's dissent doesn't argue the Citizenship Clause is race-limited — he reads it as applying "regardless of race," joined by Gorsuch. His limiting principle is domicile: <span class="math" style="display:inline; text-align:left; font-size:1em;">"subject to the jurisdiction thereof"</span> means complete, permanent allegiance, not mere presence. Jackson's sharpest charge isn't that Thomas smuggled race back into a colorblind text — it's that a domicile test, applied to modern immigration status, reproduces the exclusionary shape of Dred Scott's logic while disclaiming its premise. Two different Jacobians are in play: one about how broad the enacted class is (the Trumbull episode answers this), and one about what "jurisdiction" itself denotes (domicile answers it differently than territorial presence does). The withdrawn-draft history is real evidence for the first dispute. It isn't dispositive of the second.</p>
+          </div>
+          <div class="dblock">
+            <div class="dlabel">Extending G = J⊤WJ</div>
+            <p>Ukubona's own equation from the SVG(J) reference — the metric is sovereign, W is not a free parameter, it's the weighting of what counts as evidence — applies here almost literally. Thomas's dissent draws its evidentiary weight from domicile treatises and private-international-law doctrine on allegiance. The majority draws its weight from <em>Wong Kim Ark</em>'s common-law framing and the sweep of Trumbull's own later floor statements, including his own admission that even the infant child of a foreigner born in this land is a citizen under his bill. Both readings are internally coherent given their own W. The unresolved question sits one level up: which body of 1868 evidence deserves the heavier weight. That isn't a Jacobian computation with a unique answer — it's the actual site of the jurisprudential disagreement, and reasonable textualists have argued it for decades before this case existed.</p>
+          </div>
+          <div class="dblock">
+            <div class="dlabel">The double-edged geodesic</div>
+            <p>Worth sitting with, for balance: Wong Kim Ark himself was born to parents lawfully domiciled in San Francisco — not to parents unlawfully present or on a temporary visa. The majority in <em>Barbara</em> holds that fact was incidental to the 1898 Court's reasoning, not load-bearing; Thomas's dissent holds the opposite. Which means the "false geodesic" charge — mistaking a chosen coordinate chart for the manifold — cuts both ways. It's exactly as fair to ask whether a 128-year-old opinion is being stretched past what its own facts decided as it is to ask whether a domicile theory imports a limit the enacted text never stated. The critique the roundtable built is sound. It just isn't a one-way weapon.</p>
+          </div>
+          <div class="dblock">
+            <div class="dlabel">Internal consistency vs. external critique</div>
+            <p>Jackson's move against Thomas is different in kind from the Jacobian-vs-manifold critique above. It isn't "your method forgot it's an approximation" — it's "your own stated commitments, run consistently, don't obviously get you here," pointing at Thomas's long record of arguing for a colorblind Constitution elsewhere. Thomas's likely answer: domicile is not a racial category, so a domicile test applied regardless of race carries no formal tension with colorblindness — at most a disparate-impact concern, which is a different and weaker charge than the one Jackson's rhetoric implies. Both moves are legitimate forms of argument. Neither is a knockout.</p>
+          </div>
+        </div>
+        <p style="margin-top:1.1rem;">None of this resolves which W belongs in the Constitution. It just relocates the disagreement to where it actually lives — and confirms the roundtable's own instinct that the interesting question was never really about birthright citizenship.</p>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <!-- ── EPISTEMIC NOTE ── -->
+  <div class="ep-note">
+    <div class="ep-label">Okubala si Kulaba</div>
+    <p>
+      Counting is not seeing. Four systems ran the same five-stage compression on the same ten minutes of
+      video and arrived at compatible readings faster than any one of them could have read the actual
+      194-page slip opinion. That is not a criticism of the pentad — it is what the pentad is for: a fast,
+      legible Jacobian thrown across a manifold too large for any one sitting to hold. But a Jacobian checked
+      against <em>y_obs</em> is worth infinitely more than one that never was. The roundtable's instinct was
+      right before a single citation was pulled. What changes, once the citations are pulled, is not the
+      verdict on Thomas or on Jackson — it's the shape of the disagreement itself, which turns out to run
+      one level deeper than "text versus discarded draft." The count was five voices. What was seen was one
+      recurring failure mode, now witnessed twice — once in a courtroom about biological sex, once in a
+      courtroom about birthright citizenship — and confirmed, this time, against the primary source.
+    </p>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  <span class="brand">Ukubona LLC</span>
+  <span class="ts">The Abandoned Coordinate · Multi-Model Roundtable · July 2026<br>Ukubona → Claude → Gemini → OpenAI → Claude ↺ · verbatim except Ukubona</span>
+</footer>
+
+<script>
+(function(){
+  var html = document.documentElement;
+  var btn  = document.getElementById('theme-btn');
+  var curr = 'dark';
+  function apply(t){
+    curr = t;
+    html.setAttribute('data-theme', t);
+    btn.textContent = t === 'dark' ? 'light' : 'dark';
+  }
+  btn.addEventListener('click', function(){ apply(curr === 'dark' ? 'light' : 'dark'); });
+  apply('dark');
+})();
+</script>
+</body>
+</html>
