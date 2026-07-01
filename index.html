@@ -217,6 +217,7 @@ h1 em { font-style: italic; color: var(--amber); }
 }
 .voice-content .vq.strong-q { border-left-color: var(--amber-dim); font-weight: 500; font-style: normal; }
 .voice-content .math { font-family: var(--mono); color: var(--amber-dim); font-style: normal; display: block; text-align: center; margin: 0.9rem 0; font-size: 0.92rem; }
+.voice-content .inline-math { font-family: var(--mono); color: var(--blue); font-style: normal; font-size: 0.95em; }
 .voice-content .src-line { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); word-break: break-all; }
 .voice-content .src-line a { color: var(--blue); text-decoration: none; }
 .voice-content .src-line a:hover { text-decoration: underline; }
@@ -276,7 +277,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav class="site-nav" aria-label="Site navigation">
   <div class="nav-inner">
     <div class="logo-wrap" aria-hidden="true">
@@ -295,7 +295,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
 
 <div class="page">
 
-  <!-- ── HERO ── -->
   <div class="hero">
     <p class="eyebrow">Ukubona LLC · Multi-Model Roundtable · July 2026</p>
     <h1>The Abandoned<br><em>Coordinate</em></h1>
@@ -313,7 +312,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
     <p class="video-caption">MS NOW · "Blight: Thomas's dissent reflects 'an ideology in search of a history'" · the clip that started the sitting</p>
   </div>
 
-  <!-- ── GROUND TRUTH ── -->
   <div class="sl">Ground truth · y_obs, checked after the roundtable ran</div>
   <div class="case-box">
     <div class="case-name">Trump v. Barbara</div>
@@ -350,12 +348,10 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
     </div>
   </div>
 
-  <!-- ── ROUNDTABLE ── -->
   <div class="sl">The roundtable · five voices, one sitting</div>
 
   <div class="timeline">
 
-    <!-- 0. UKUBONA (compressed) -->
     <div class="tl-item voice-ukubona">
       <div class="tl-dot"></div>
       <div class="tl-date">Trigger · compressed</div>
@@ -373,7 +369,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
       </div>
     </div>
 
-    <!-- 1. GPT (prior turn / Document 2) -->
     <div class="tl-item voice-claude">
       <div class="tl-dot"></div>
       <div class="tl-date">OpenAI · ChatGPT</div>
@@ -424,7 +419,7 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
         <p>It is</p>
         <span class="math">J = ∂y/∂x</span>
         <p>a local linearization.</p>
-        <p>If someone mistakes J for θ (the underlying manifold), then every downstream prediction becomes constrained by a local approximation.</p>
+        <p>If someone mistakes J for <span class="math">&theta;</span> (the underlying manifold), then every downstream prediction becomes constrained by a local approximation.</p>
         <p>That's exactly your "Judicial Jacobian perversion."</p>
         <p>Not because originalism is necessarily wrong, but because <strong>any interpretive method becomes pathological if it forgets that it is an approximation rather than the object itself.</strong></p>
         <hr>
@@ -442,7 +437,7 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
         </ul>
         <p>A small error in J produces a large error in downstream outputs.</p>
         <hr>
-        <p>One place I'd be cautious is this sentence:</p>
+        <p>One place I I'd be cautious is this sentence:</p>
         <div class="vq">"The final text of the 14th Amendment was explicitly written as a broad, universal space — a continuous Tensor..."</div>
         <p>As metaphor that's elegant, but historically it needs qualification. The Fourteenth Amendment still contains discrete legal concepts ("subject to the jurisdiction thereof," citizenship, equal protection, etc.). Calling it a "continuous tensor" works as a philosophical abstraction, but not as a literal description of constitutional drafting.</p>
         <p>A formulation that preserves your mathematical framework while staying closer to the history would be:</p>
@@ -454,7 +449,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
       </div>
     </div>
 
-    <!-- 2. GEMINI -->
     <div class="tl-item voice-gemini">
       <div class="tl-dot"></div>
       <div class="tl-date">Google · Gemini</div>
@@ -468,7 +462,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
       </div>
     </div>
 
-    <!-- 3. OPENAI -->
     <div class="tl-item voice-openai">
       <div class="tl-dot"></div>
       <div class="tl-date">OpenAI</div>
@@ -480,7 +473,6 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
       </div>
     </div>
 
-    <!-- 4. CLAUDE — additional viewpoint (current) -->
     <div class="tl-item voice-newclaude">
       <div class="tl-dot"></div>
       <div class="tl-date">Anthropic · Claude · current</div>
@@ -495,7 +487,7 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
           </div>
           <div class="dblock">
             <div class="dlabel">Extending G = J⊤WJ</div>
-            <p>Ukubona's own equation from the SVG(J) reference — the metric is sovereign, W is not a free parameter, it's the weighting of what counts as evidence — applies here almost literally. Thomas's dissent draws its evidentiary weight from domicile treatises and private-international-law doctrine on allegiance. The majority draws its weight from <em>Wong Kim Ark</em>'s common-law framing and the sweep of Trumbull's own later floor statements, including his own admission that even the infant child of a foreigner born in this land is a citizen under his bill. Both readings are internally coherent given their own W. The unresolved question sits one level up: which body of 1868 evidence deserves the heavier weight. That isn't a Jacobian computation with a unique answer — it's the actual site of the jurisprudential disagreement, and reasonable textualists have argued it for decades before this case existed.</p>
+            <p>Ukubona's own equation from the SVG(J) reference — the metric is sovereign, <span class="math">W</span> is not a free parameter, it's the weighting of what counts as evidence — applies here almost literally. Thomas's dissent draws its evidentiary weight from domicile treatises and private-international-law doctrine on allegiance. The majority draws its weight from <em>Wong Kim Ark</em>'s common-law framing and the sweep of Trumbull's own later floor statements, including his own admission that even the infant child of a foreigner born in this land is a citizen under his bill. Both readings are internally coherent given their own <span class="math">W</span>. The unresolved question sits one level up: which body of 1868 evidence deserves the heavier weight. That isn't a Jacobian computation with a unique answer — it's the actual site of the jurisprudential disagreement, and reasonable textualists have argued it for decades before this case existed.</p>
           </div>
           <div class="dblock">
             <div class="dlabel">The double-edged geodesic</div>
@@ -506,18 +498,17 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
             <p>Jackson's move against Thomas is different in kind from the Jacobian-vs-manifold critique above. It isn't "your method forgot it's an approximation" — it's "your own stated commitments, run consistently, don't obviously get you here," pointing at Thomas's long record of arguing for a colorblind Constitution elsewhere. Thomas's likely answer: domicile is not a racial category, so a domicile test applied regardless of race carries no formal tension with colorblindness — at most a disparate-impact concern, which is a different and weaker charge than the one Jackson's rhetoric implies. Both moves are legitimate forms of argument. Neither is a knockout.</p>
           </div>
         </div>
-        <p style="margin-top:1.1rem;">None of this resolves which W belongs in the Constitution. It just relocates the disagreement to where it actually lives — and confirms the roundtable's own instinct that the interesting question was never really about birthright citizenship.</p>
+        <p style="margin-top:1.1rem;">None of this resolves which <span class="math">W</span> belongs in the Constitution. It just relocates the disagreement to where it actually lives — and confirms the roundtable's own instinct that the interesting question was never really about birthright citizenship.</p>
       </div>
     </div>
 
-    <!-- 5. GEMINI — Uses and Abuses (new tab/lens) -->
     <div class="tl-item voice-gemini">
       <div class="tl-dot" style="border-color: var(--blue); background: var(--bg);"></div>
       <div class="tl-date" style="color: var(--blue);">Google · Gemini · Extended Lens</div>
       <div class="tl-title" style="color: var(--blue);">The Untimely Coordinate: History's Use & Abuse</div>
       <div class="voice-tags"><span class="vtag verbatim">nietzschean framework</span><span class="vtag verbatim">critical history</span></div>
       <div class="voice-content">
-        <p>If we pass the "Judicial Jacobian" through the lens of Friedrich Nietzsche's <em>On the Use and Abuse of History for Life</em>, the conflict between Justice Thomas and Justice Jackson stops being merely a debate over evidentiary weight ($W$). It becomes a life-and-death struggle over the purpose of the historical coordinate itself.</p>
+        <p>If we pass the "Judicial Jacobian" through the lens of Friedrich Nietzsche's <em>On the Use and Abuse of History for Life</em>, the conflict between Justice Thomas and Justice Jackson stops being merely a debate over evidentiary weight (<span class="inline-math">W</span>). It becomes a life-and-death struggle over the purpose of the historical coordinate itself.</p>
         <div class="dgrid">
           <div class="dblock">
             <div class="dlabel" style="color: var(--blue);">The Antiquarian Abuse (Thomas's Domicile)</div>
@@ -532,14 +523,11 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
             <p>To survive the suffocating weight of an abused past, a society must employ <strong>Critical</strong> history. Nietzsche insists we must "interrogate it remorselessly, and finally condemn it." Jackson’s concurrence performs exactly this critical audit. By exposing the withdrawn race-specific draft and dismantling the domicile proxy, she puts the knife to the roots of an exclusionary originalism. She demonstrates that a historical framework that generates "Administrative Wreckage"—one that operates against the living demographic reality of the nation—deserves to fall. She judges the past for the sake of the present.</p>
           </div>
         </div>
-        <p style="margin-top:1.1rem;">In systems terms: an interpretive Jacobian ($J$) is only valid so long as it serves the underlying manifold ($\theta^t$, Life). When the matrix becomes an enemy of the continuous reality it is meant to parse, the system must apply Critical history (the scalar loss function, $L(\theta^{t+1})$) to calculate a new gradient. The abandoned coordinate was abandoned precisely because it could not sustain life.</p>
+        <p style="margin-top:1.1rem;">In systems terms: an interpretive Jacobian (<span class="inline-math">J</span>) is only valid so long as it serves the underlying manifold (<span class="inline-math">&theta;<sup>t</sup></span>, Life). When the matrix becomes an enemy of the continuous reality it is meant to parse, the system must apply Critical history (the scalar loss function, <span class="inline-math">L(&theta;<sup>t+1</sup>)</span>) to calculate a new gradient. The abandoned coordinate was abandoned precisely because it could not sustain life.</p>
       </div>
     </div>
 
-  </div><!-- /timeline -->
-
-  <!-- ── EPISTEMIC NOTE ── -->
-  <div class="ep-note">
+  </div><div class="ep-note">
     <div class="ep-label">Okubala si Kulaba</div>
     <p>
       Counting is not seeing. Four systems ran the same five-stage compression on the same ten minutes of
@@ -555,9 +543,7 @@ footer .ts { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); 
     </p>
   </div>
 
-</div><!-- /page -->
-
-<footer>
+</div><footer>
   <span class="brand">Ukubona LLC</span>
   <span class="ts">The Abandoned Coordinate · Multi-Model Roundtable · July 2026<br>Ukubona → Claude → Gemini → OpenAI → Claude → Gemini ↺ · verbatim except Ukubona</span>
 </footer>
